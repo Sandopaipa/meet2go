@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-vt4do+62)2=k190@xvzz43_6%34(gkzp492uh_0=cyb7=%*zn4
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'users.AccountData'
 
 # Application definition
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +76,12 @@ WSGI_APPLICATION = 'meet2go.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'meet2go_db',
+        'USER': 'admin',
+        'PASSWORD': '1111',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
