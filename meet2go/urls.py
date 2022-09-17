@@ -21,6 +21,9 @@ import users.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('user/list', users.views.UserListView.as_view()),
-    path('user/create', users.views.CreateUserView.as_view())
+    path('user/<int:account_id>', users.views.UserAccountView.as_view()),
+    path('user/list', users.views.UserViewList.as_view()),
+    path('user/create', users.views.UserCreateView.as_view()),
+    path('user/update/<int:account_id>', users.views.UserAccountUpdateView.as_view()),
+    path('user/update/<int:account_id>/password', users.views.UserAccountPasswordUpdateView.as_view()),
 ]

@@ -9,9 +9,11 @@ class UserAdmin(UserAdmin):
     form = UserChangeForm
     model = AccountData
     list_display = (
+        'account_id',
         'email',
         'first_name',
         'last_name',
+        'birthdate',
         'is_staff',
         'is_active',
     )

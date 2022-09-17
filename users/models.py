@@ -2,8 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
 
+
 class UserManager(BaseUserManager):
-    def create_user(self, email, password, first_name, last_name, **extra_fields):
+    def create_user(self, email, password, first_name, last_name, birthdate, **extra_fields):
         if not email:
             raise ValueError('Введите ваш e-mail')
         if not first_name:
@@ -15,13 +16,14 @@ class UserManager(BaseUserManager):
             email=email,
             first_name=first_name,
             last_name=last_name,
+            birthdate=birthdate,
             **extra_fields
         )
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, password, first_name, last_name, **extra_fields):
+    def create_superuser(self, email, password, first_name, last_name, birthdate, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
@@ -29,18 +31,23 @@ class UserManager(BaseUserManager):
             raise ValueError('Cannot create superuser: is_staff is not True')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Cannot create superuser: is_superuser is not True')
-        return self.create_user(email, password, first_name, last_name, **extra_fields)
+        return self.create_user(email, password, first_name, last_name, birthdate, **extra_fields)
+
+
 
 class AccountData(AbstractUser):
     username = None
-    email = models.EmailField('e-mail', unique=True)
+    account_id = models.BigAutoField('id пользователя', primary_key=True)
+    email = models.EmailField('e-mail', unique=True, blank=False)
     first_name = models.CharField('Имя', max_length=32, blank=False)
     last_name = models.CharField('Фамилия', max_length=32, blank=False)
+    birthdate = models.DateField('Дата рождения', blank=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [
         'first_name',
         'last_name',
+        'birthdate',
     ]
 
     objects = UserManager()
