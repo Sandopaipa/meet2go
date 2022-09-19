@@ -27,4 +27,6 @@ urlpatterns = [
     path('user/create', users.views.UserCreateView.as_view()),
     path('user/update/<int:account_id>', users.views.UserAccountUpdateView.as_view()),
     path('tag/list', tags.views.TagListView.as_view()),
+    path('tag/<int:tag_id>', tags.views.TagGetView.as_view()),
+    path('tag/create', tags.views.TagCreateView.as_view())
 ]
