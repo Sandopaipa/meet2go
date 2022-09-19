@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+import tags.views
 import users.views
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
     path('user/list', users.views.UserViewList.as_view()),
     path('user/create', users.views.UserCreateView.as_view()),
     path('user/update/<int:account_id>', users.views.UserAccountUpdateView.as_view()),
+    path('tag/list', tags.views.TagListView.as_view()),
 ]

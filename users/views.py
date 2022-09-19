@@ -36,6 +36,7 @@ class UserAccountUpdateView(APIView):
         serializer.save()
         return Response({"post": serializer.data})
 
+
 """class UserAccountPasswordUpdateView(APIView):
     def patch(self, request, **kwargs):
         account_id = kwargs.get('account_id', None)
@@ -50,10 +51,10 @@ class UserAccountUpdateView(APIView):
         serializer.save()
         return Response({'post': serializer.data})"""
 
+
 class UserCreateView(APIView):
     def post(self, request):
         serializer = AccountSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         return Response(status=201)
-
