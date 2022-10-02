@@ -7,6 +7,7 @@ __USERFIELDSET__ = (
             'first_name',
             'last_name',
             'birthdate',
+            'password',
             'phone_number',
             'bio',
             'follows',
@@ -14,26 +15,31 @@ __USERFIELDSET__ = (
         )
 
 
-class AccountListSerializer(serializers.ModelSerializer):
-    """All accounts output"""
-    phone_number = serializers.CharField(source='profile.phone_number')
-    bio = serializers.CharField(source='profile.bio')
-    follows = serializers.StringRelatedField(source='profile.follows', many=True)
-    gender = serializers.CharField(source='profile.gender')
-    class Meta:
-        model = AccountData
-        fields = __USERFIELDSET__
-
-
-class AccountSerializer(serializers.ModelSerializer):
-    phone_number = serializers.CharField(source='profile.phone_number')
-    bio = serializers.CharField(source='profile.bio', allow_null=True)
-    follows = serializers.StringRelatedField(source='profile.follows', many=True)
-    gender = serializers.CharField(source='profile.gender')
+class AccountCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         account = AccountData.objects.create_user(**validated_data)
         return account
+
+    class Meta:
+        model = AccountData
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'birthdate',
+            'password',
+        )
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+
+
+class AccountSerializer(serializers.ModelSerializer):
+    phone_number = serializers.CharField(source='profile.phone_number')
+    bio = serializers.CharField(source='profile.bio')
+    follows = serializers.StringRelatedField(source='profile.follows', many=True)
+    gender = serializers.CharField(source='profile.gender')
 
     def update(self, instance, validated_data):
         instance.email = validated_data.get('email', instance.email)
@@ -51,3 +57,4 @@ class AccountSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
+

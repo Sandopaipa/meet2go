@@ -1,12 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import AccountData
-from .serializers import AccountSerializer, AccountListSerializer
+from .serializers import AccountSerializer, AccountCreateSerializer
 
 class UserViewList(APIView):
     def get(self, request):
         accounts = AccountData.objects.all()
-        serializer = AccountListSerializer(accounts, many=True)
+        serializer = AccountSerializer(accounts, many=True)
         return Response(serializer.data)
 
 
@@ -40,7 +40,7 @@ class UserCreateView(APIView):
         no need to fill user's profile
         during registration """
     def post(self, request):
-        serializer = AccountSerializer(data=request.data)
+        serializer = AccountCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         return Response(status=201)

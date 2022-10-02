@@ -84,12 +84,12 @@ WSGI_APPLICATION = 'meet2go.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE'),
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+        'ENGINE': os.getenv('DB_ENGINE_DEFAULT'),
+        'NAME': os.getenv('DB_NAME_DEFAULT'),
+        'USER': os.getenv('DB_USER_DEFAULT'),
+        'PASSWORD': os.getenv('DB_PASSWORD_DEFAULT'),
+        'HOST': os.getenv('DB_HOST_DEFAULT'),
+        'PORT': os.getenv('DB_PORT_DEFAULT'),
     }
 }
 
