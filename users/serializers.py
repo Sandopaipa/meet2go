@@ -1,10 +1,13 @@
 from rest_framework import serializers
-from .models import AccountData, UserManager
+from .models import AccountData
 
 
 class AccountListSerializer(serializers.ModelSerializer):
     """All accounts output"""
-
+    phone_number = serializers.CharField(source='profile.phone_number')
+    bio = serializers.CharField(source='profile.bio')
+    follows = serializers.StringRelatedField(source='profile.follows', many=True)
+    gender = serializers.CharField(source='profile.gender')
     class Meta:
         model = AccountData
         fields = (
@@ -12,6 +15,10 @@ class AccountListSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'birthdate',
+            'phone_number',
+            'bio',
+            'follows',
+            'gender',
         )
 
 

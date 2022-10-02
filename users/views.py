@@ -1,5 +1,3 @@
-from django.shortcuts import render
-from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import AccountData
@@ -35,21 +33,6 @@ class UserAccountUpdateView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"post": serializer.data})
-
-
-"""class UserAccountPasswordUpdateView(APIView):
-    def patch(self, request, **kwargs):
-        account_id = kwargs.get('account_id', None)
-        if not account_id:
-            return Response({'error': 'can not find any'})
-        try:
-            instance = AccountData.objects.get(pk=account_id)
-        except:
-            return Response({'error': 'Searching object does not exists'})
-        serializer = AccountSerializer(data=request.data, instance=instance)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({'post': serializer.data})"""
 
 
 class UserCreateView(APIView):

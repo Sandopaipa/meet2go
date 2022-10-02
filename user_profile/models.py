@@ -1,5 +1,4 @@
 from django.db import models
-from users.models import AccountData
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from users.models import AccountData
@@ -12,10 +11,13 @@ class Profile(models.Model):
         ('female', "Female"),
     ]
     profile_id = models.OneToOneField(AccountData, on_delete=models.CASCADE)
-    phone_number = PhoneNumberField('Phone number', unique=True, blank=True)
+    phone_number = PhoneNumberField('Phone number', blank=True)
     bio = models.TextField(max_length=1500, blank=True)
     follows = models.ManyToManyField('self', blank=True, related_name='Followers', symmetrical=False)
     gender = models.CharField('Gender', choices=__GENDERS__, blank=True, max_length=6)
+
+    def __str__(self):
+        return '%s' % self.profile_id
 
 
 @receiver(post_save, sender=AccountData)

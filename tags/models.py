@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 
+
 class Tag(models.Model):
     tag_id = models.BigAutoField(primary_key=True)
     tag_name = models.CharField(max_length=32, blank=False, unique=True)
@@ -8,4 +9,3 @@ class Tag(models.Model):
 
     def __str__(self):
         return '%s' % self.tag_name
-
