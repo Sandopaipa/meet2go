@@ -16,17 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import tags.views
-import users.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('user/<int:account_id>', users.views.UserAccountView.as_view()),
-    path('user/list', users.views.UserViewList.as_view()),
-    path('user/create', users.views.UserCreateView.as_view()),
-    path('user/update/<int:account_id>', users.views.UserAccountUpdateView.as_view()),
-    path('tag/list', tags.views.TagListView.as_view()),
-    path('tag/<int:tag_id>', tags.views.TagGetView.as_view()),
-    path('tag/create', tags.views.TagCreateView.as_view())
+    path('', include('users.urls')),
+    path('', include('tags.urls')),
 ]

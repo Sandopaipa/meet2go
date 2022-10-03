@@ -36,6 +36,9 @@ class UserAccountUpdateView(APIView):
 
 
 class UserCreateView(APIView):
+    """ With stand of app's concept -
+        no need to fill user's profile
+        during registration """
     def post(self, request):
         serializer = AccountSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):

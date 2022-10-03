@@ -2,15 +2,7 @@ from rest_framework import serializers
 from .models import AccountData
 
 
-class AccountListSerializer(serializers.ModelSerializer):
-    """All accounts output"""
-    phone_number = serializers.CharField(source='profile.phone_number')
-    bio = serializers.CharField(source='profile.bio')
-    follows = serializers.StringRelatedField(source='profile.follows', many=True)
-    gender = serializers.CharField(source='profile.gender')
-    class Meta:
-        model = AccountData
-        fields = (
+__USERFIELDSET__ = (
             'email',
             'first_name',
             'last_name',
@@ -22,7 +14,23 @@ class AccountListSerializer(serializers.ModelSerializer):
         )
 
 
+class AccountListSerializer(serializers.ModelSerializer):
+    """All accounts output"""
+    phone_number = serializers.CharField(source='profile.phone_number')
+    bio = serializers.CharField(source='profile.bio')
+    follows = serializers.StringRelatedField(source='profile.follows', many=True)
+    gender = serializers.CharField(source='profile.gender')
+    class Meta:
+        model = AccountData
+        fields = __USERFIELDSET__
+
+
 class AccountSerializer(serializers.ModelSerializer):
+    phone_number = serializers.CharField(source='profile.phone_number')
+    bio = serializers.CharField(source='profile.bio')
+    follows = serializers.StringRelatedField(source='profile.follows', many=True)
+    gender = serializers.CharField(source='profile.gender')
+
     def create(self, validated_data):
         account = AccountData.objects.create_user(**validated_data)
         return account
@@ -39,13 +47,7 @@ class AccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AccountData
-        fields = (
-            'email',
-            'first_name',
-            'last_name',
-            'password',
-            'birthdate',
-        )
+        fields = __USERFIELDSET__
         extra_kwargs = {
             'password': {'write_only': True}
         }
