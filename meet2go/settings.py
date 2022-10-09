@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vt4do+62)2=k190@xvzz43_6%34(gkzp492uh_0=cyb7=%*zn4'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-vt4do+62)2=k190@xvzz43_6%34(gkzp492uh_0=cyb7=%*zn4')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -79,16 +79,6 @@ WSGI_APPLICATION = 'meet2go.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'meet2go_db',
-#        'USER': 'admin',
-#        'PASSWORD': '1111',
-#        'HOST': 'localhost',
-#        'PORT': '5432',
-#    }
-#}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
