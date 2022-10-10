@@ -27,7 +27,7 @@ class AccountListSerializer(serializers.ModelSerializer):
 
 class AccountSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(source='profile.phone_number')
-    bio = serializers.CharField(source='profile.bio')
+    bio = serializers.CharField(source='profile.bio', allow_null=True)
     follows = serializers.StringRelatedField(source='profile.follows', many=True)
     gender = serializers.CharField(source='profile.gender')
 
