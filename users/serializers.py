@@ -3,16 +3,24 @@ from .models import AccountData
 
 
 __USERFIELDSET__ = (
-            'email',
-            'first_name',
-            'last_name',
-            'birthdate',
-            'password',
-            'phone_number',
-            'bio',
-            'follows',
-            'gender',
+    'email',
+    'first_name',
+    'last_name',
+    'birthdate',
+    'password',
+    'phone_number',
+    'bio',
+    'follows',
+    'gender',
         )
+
+__USERFIELDCREATESET__ = (
+    'email',
+    'first_name',
+    'last_name',
+    'birthdate',
+    'password',
+)
 
 
 class AccountCreateSerializer(serializers.ModelSerializer):
@@ -23,13 +31,7 @@ class AccountCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AccountData
-        fields = (
-            'email',
-            'first_name',
-            'last_name',
-            'birthdate',
-            'password',
-        )
+        fields = __USERFIELDCREATESET__
         extra_kwargs = {
             'password': {'write_only': True}
         }
